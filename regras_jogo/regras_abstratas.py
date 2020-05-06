@@ -43,6 +43,13 @@ class AbstractRegrasJogo(ABC):
         de acordo com as ações de cada jogador registradas anteriormente.
         """
         return
+    
+    @abstractmethod
+    def terminarJogo(self):
+        """ Faz procedimentos de fim de jogo, como mostrar placar final,
+        gravar resultados, etc...
+        """
+        return
 
 def construir_jogo(*args,**kwargs):
     """ Método factory para uma instância RegrasJogo arbitrária, de acordo com os

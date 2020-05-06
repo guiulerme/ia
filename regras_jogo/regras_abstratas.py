@@ -7,8 +7,8 @@ class AbstractRegrasJogo(ABC):
     """
 
     @abstractmethod
-    def registrarAgenteJogador(self, elem_agente):
-        """ Cria ou recupera id de um elemento de jogo agente.
+    def registrarAgentePersonagem(self, personagem):
+        """ Cria ou recupera id de um personagem agente.
         """
         return
     
@@ -48,5 +48,4 @@ def construir_jogo(*args,**kwargs):
     """ Método factory para uma instância RegrasJogo arbitrária, de acordo com os
     parâmetros. Pode-se mudar à vontade a assinatura do método.
     """
-    from regras_jogo.jogo_ordenador import JogoOrdenador
-    return JogoOrdenador(kwargs.get('qtde_colunas',10))
+    return NomeDoSeuJogo()

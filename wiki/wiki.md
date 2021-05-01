@@ -9,4 +9,4 @@ Estado intermediário (pode ser um estado inicial)
 Estado final
 8-puzzle([1 2 3][4 5 6][7 8 0])
 
-![tela](/wiki/image/estados_ia.jpg)
+![tela](/proj1/ia/wiki/image/estados_ia.jpg)

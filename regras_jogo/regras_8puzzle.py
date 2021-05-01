@@ -1,6 +1,9 @@
 from regras_jogo.regras_abstratas import AbstractRegrasJogo
+from .personagens import Personagens
+from percepcoes import PercepcoesJogador
+from acoes import AcoesJogador
 
-class RegrasPuzzle(AbstractRegrasJogo):
+class EightPuzzle(AbstractRegrasJogo):
 
     def __init__(self):
         import random
@@ -25,6 +28,7 @@ class RegrasPuzzle(AbstractRegrasJogo):
             return 1
 
         def isFim(self):
+            import numpy as np
             final = np.array([1,2,3], [4,5,6], [7,8,0])
             return all(self.elementos[i][j] == final[i][j] for i in range(0,3) for j in range(0,3))
 

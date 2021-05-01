@@ -14,13 +14,32 @@ def ler_tempo(em_turnos=False):
     """
     return 1 if em_turnos else time.time()
 
+def escolher_agente():
+    agente_escolhido = None
+
+    while not agente_escolhido:
+        print("--- Escolha o agente para o jogo. ---")
+        print("1 - Humano")
+        print("2 - Agente BFS")
+        print("3 - Agente DFS")
+        tipo_agente = str(input('Digite um número: '))
+
+        agentes = {'1': TiposAgentes.PREPOSTO_HUMANO, '2': TiposAgentes.AUTO_BFS, '3': TiposAgentes.AUTO_DFS,}
+
+        agente_escolhido = agentes.get(tipo_agente)
+
+        if not agente_escolhido:
+            print('Agente inválido.\n')
+
+    return agente_escolhido
+
 
 def iniciar_jogo():
     
     # Inicializar e configurar jogo
     jogo = construir_jogo()
     personagem_jogador = jogo.registrarAgentePersonagem(Personagens.O_JOGADOR)
-    agente_jogador = construir_agente(TiposAgentes.PREPOSTO_HUMANO, Personagens.O_JOGADOR)
+    agente_jogador = construir_agente(agente_escolhido, Personagens.O_JOGADOR)
     
     tempo_de_jogo = 0
     while not jogo.isFim():
@@ -34,9 +53,12 @@ def iniciar_jogo():
         jogo.registrarProximaAcao(personagem_jogador, acao)
 
         # Atualizar jogo
-        tempo_corrente = ler_tempo()
-        jogo.atualizarEstado(tempo_corrente - tempo_de_jogo)
+        tempo_corrente = ler_tempo(em_turnos = True)
+        jogo.atualizarEstado(tempo_corrente)
         tempo_de_jogo += tempo_corrente
+
+        agente_jogador.adquirirPercepcao(ambiente_perceptivel)
+        jogo.terminarJogo()
 
 
 if __name__ == '__main__':

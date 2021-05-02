@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import time
-from regras_jogo.regras_abstratas import construir_jogo
+from regras_jogo.regras_8puzzle import construir_jogo
 from regras_jogo.personagens import Personagens
-from agentes.abstrato import construir_agente
+from agentes import construir_agente
 from agentes.tipos import TiposAgentes
 
 def ler_tempo(em_turnos=False):
@@ -53,12 +53,12 @@ def iniciar_jogo():
         jogo.registrarProximaAcao(personagem_jogador, acao)
 
         # Atualizar jogo
-        tempo_corrente = ler_tempo(em_turnos = True)
-        jogo.atualizarEstado(tempo_corrente)
-        tempo_de_jogo += tempo_corrente
+        jogo.atualizarEstado(1)
+        tempo_de_jogo += 1
 
-        agente_jogador.adquirirPercepcao(ambiente_perceptivel)
         jogo.terminarJogo()
+        ambiente_perceptivel = jogo.gerarCampoVisao(personagem_jogador)
+        agente_jogador.adquirirPercepcao(ambiente_perceptivel)
 
 
 if __name__ == '__main__':

@@ -18,7 +18,7 @@ class AgentePrepostoESHumano(AgenteAbstrato):
         valido = False
         while valido == False:
             direcao = imput("Qual direção deseja mover (cima, baixo, esquerda, direita)? ")
-            if ((direcao = "cima") or (direcao == "baixo") or (direcao == "esquerda") or (direcao == "direita")):
+            if ((direcao == "cima") or (direcao == "baixo") or (direcao == "esquerda") or (direcao == "direita")):
                 valido = True
                 return AcaoJogador.puxar(direcao)
             else:

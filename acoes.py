@@ -4,11 +4,17 @@ from dataclasses import dataclass
 class AcoesJogador(Enum):
     MOVER = 'mover'
 
+class DirecaoMover(Enum):
+    DIREITA = 'Direita'
+    ESQUERDA = 'Esquerda'
+    CIMA = 'Cima'
+    BAIXO = 'Baixo'
+
 @dataclass
 class AcaoJogador():
     tipo: str
-    parametros: tuple = tuple()
+    parametros: str
 
     @classmethod
-    def mover(cls, direcao):
-        return cls(AcoesJogador.MOVER, (direcao))
+    def mover(cls, direcao: DirecaoMover) -> 'AcaoJogador':
+        return cls(AcoesJogador.MOVER, direcao)

@@ -13,23 +13,23 @@ class AgenteAut(AgenteAbstrato):
         super().__init__()
 
         self.problema: ProblemaEightPuzzle = None
-        self.solucao: list = None
+        self.sol: list = None
         self.tipo_agente = tipo_agente
     
     def adquirirPercepcao(self, percepcao_mundo: PercepcoesJogador):
-        AgenteAut.desenhar_tab(percepcao_mundo)
+        AgenteAut.desenhar_tabuleiro(percepcao_mundo)
 
-        if not self.solucao:
+        if not self.sol:
             self.problema = ProblemaEightPuzzle(percepcao_mundo)
     
     def escolherProximaAcao(self):
-        if not self.solucao:
-            no_solucao = busca_arvore(self.problema, self.tipo_agente)
-            self.solucao = no_solucao.caminho_acoes()
-            if not self.solucao:
+        if not self.sol:
+            no_sol = busca_arvore(self.problema, self.tipo_agente)
+            self.sol = no_sol.caminho_acoes()
+            if not self.sol:
                 raise Exception(f'Agente {self.tipo_agente.value} não encontrou solução.')
         
-        acao = self.solucao.pop(0)
+        acao = self.sol.pop(0)
         print(f'\nPróxima ação é mover para "{acao.direcao}".')
         time.sleep(1)
 
@@ -52,9 +52,9 @@ class AgenteAut(AgenteAbstrato):
         return direcao
 
     @staticmethod
-    def desenhar_tab(percepcao_mundo: PercepcoesJogador):
+    def desenhar_tabuleiro(percepcao_mundo: PercepcoesJogador):
         print("-" * 42)
-        for x in percepcao_mundo.tab:
+        for x in percepcao_mundo.tabuleiro:
             print(x)
 
         if percepcao_mundo.mensagem_jogo:

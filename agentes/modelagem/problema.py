@@ -12,7 +12,7 @@ class PosicaoVazia():
 
 @dataclass
 class EstadoEightPuzzle():
-    tab: []
+    tabuleiro: []
     posicao_vazia: PosicaoVazia
 
 
@@ -30,12 +30,12 @@ class ProblemaEightPuzzle():
 
     def estado_inicial(self):
         x, y = self.percepcao_mundo.posicao_vazia
-        return EstadoEightPuzzle(self.percepcao_mundo.tab, PosicaoVazia(x, y))
+        return EstadoEightPuzzle(self.percepcao_mundo.tabuleiro, PosicaoVazia(x, y))
 
     @staticmethod
     def acoes(estado: EstadoEightPuzzle):
         acoes_possiveis = list()
-        tab = estado.tab
+        tabuleiro = estado.tabuleiro
         x, y = estado.posicao_vazia.x, estado.posicao_vazia.y
 
         if (y-1) <= 2 and (y-1) >= 0:
@@ -59,41 +59,41 @@ class ProblemaEightPuzzle():
         if acao not in acoes_possiveis:
             raise ValueError("Ação inválida!")
 
-        tab = copy.deepcopy(estado.tab)
+        tabuleiro = copy.deepcopy(estado.tabuleiro)
         x, y = estado.posicao_vazia.x, estado.posicao_vazia.y
 
         if acao.direcao == 'esquerda':
-            tab[x][y], tab[x][y-1] = tab[x][y-1], tab[x][y]
+            tabuleiro[x][y], tabuleiro[x][y-1] = tabuleiro[x][y-1], tabuleiro[x][y]
 
         elif acao.direcao == 'direita':
-            tab[x][y], tab[x][y+1] = tab[x][y+1], tab[x][y]
+            tabuleiro[x][y], tabuleiro[x][y+1] = tabuleiro[x][y+1], tabuleiro[x][y]
 
         elif acao.direcao == 'cima':
-            tab[x][y], tab[x-1][y] = tab[x-1][y], tab[x][y]
+            tabuleiro[x][y], tabuleiro[x-1][y] = tabuleiro[x-1][y], tabuleiro[x][y]
 
         elif acao.direcao == 'baixo':
-            tab[x][y], tab[x+1][y] = tab[x+1][y], tab[x][y]
+            tabuleiro[x][y], tabuleiro[x+1][y] = tabuleiro[x+1][y], tabuleiro[x][y]
         
-        x, y = ProblemaEightPuzzle.get_posicao_vazia(tab)
-        return EstadoEightPuzzle(tab, PosicaoVazia(x,y))
+        x, y = ProblemaEightPuzzle.get_posicao_vazia(tabuleiro)
+        return EstadoEightPuzzle(tabuleiro, PosicaoVazia(x,y))
 
     @staticmethod
-    def teste_objetivo(tab) -> bool:
-        parse_tab = list()
-        for linha in tab:
-            for coluna in linha:
-                parse_tab.append(coluna)
+    def teste_objetivo(tabuleiro) -> bool:
+        parse_tabuleiro = list()
+        for lin in tabuleiro:
+            for col in lin:
+                parse_tabuleiro.append(col)
 
-        solucao = [1,2,3,4,5,6,7,8,0]
-        return parse_tab == solucao
+        sol = [1,2,3,4,5,6,7,8,0]
+        return parse_tab == sol
     
     @staticmethod
     def custo() -> int:
         return 1
     
     @staticmethod
-    def get_posicao_vazia(tab):
-        for linha in range(len(tab)):
-            for coluna in range(len(tab[linha])):
-                if tab[linha][coluna] == 0:
-                    return linha, coluna
+    def get_posicao_vazia(tabuleiro):
+        for lin in range(len(tabuleiro)):
+            for col in range(len(tabuleiro[lin])):
+                if tabuleiro[lin][col] == 0:
+                    return lin, col

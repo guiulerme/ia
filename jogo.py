@@ -39,6 +39,7 @@ def iniciar_jogo():
     # Inicializar e configurar jogo
     jogo = construir_jogo()
     personagem_jogador = jogo.registrarAgentePersonagem(Personagens.O_JOGADOR)
+    agente_escolhido = escolher_agente()
     agente_jogador = construir_agente(agente_escolhido, Personagens.O_JOGADOR)
     
     tempo_de_jogo = 0
